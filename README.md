@@ -1,7 +1,9 @@
-# project1
+
 
 ### Project Design 
 <img width="838" height="479" alt="image" src="https://github.com/user-attachments/assets/30dc1b5c-2fab-41a8-92ed-bb00e40ed0b3" />
+
+
 
 
 ### Implemention 
@@ -33,6 +35,8 @@
 7.  Then go to Netwrok Setting of VM and add the mysql port with priority 110
 8.  Then Create a NAT Gateway and attached to DBSN subnet
 9.  Then Connect the DBVM using webVM (ssh devopsusersipaddress)
+
+
 ``` text
                $apt update
                #apt install mysql-server -y
@@ -61,3 +65,18 @@
 12. Create User (CREATE USER 'blinkituser'@'%' IDENTIFIED BY 'StrongPassword123';)
 13. gives all privileges (GRANT ALL PRIVILEGES ON blinkit.* TO 'blinkituser'@'%';)
 14. FLUSH PRIVILEGES;
+15. $apt install php libapache2-mod-php php-mysql -y
+16. we need to store the DB details inside the webVM
+
+
+```text
+          $cd /var/www/html/
+          $vi db.php
+$host = "10.0.2.4";       // MySQL server private IP
+$user = "blinkituser";    // MySQL username
+$pass = "[Credentials]";
+$db   = "blinkit";        // Database name
+$conn = new mysqli($host, $user, $pass, $db);
+if ($conn->connect_error) {
+    die("Connection failed: " . $conn->connect_error);
+}
